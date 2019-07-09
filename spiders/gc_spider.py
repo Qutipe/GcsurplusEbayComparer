@@ -1,6 +1,8 @@
 import scrapy
 import json
 from datetime import datetime
+from ..ebay_scraper import ebay_scraper
+import smtplib
 
 '''
 pip install pywin32
@@ -50,9 +52,15 @@ class GCSpider(scrapy.Spider):
         for i in range(len(namelist)):
             finallist.append(dict(name=namelist[i], price=pricelist[i], link=linkslist[i]))
 
-        #Saving File
-        filename = f'gc-{datetime.today().strftime("%Y-%m-%d")}.json'
-        with open(filename, 'w') as f:
-            json.dump(finallist,f, indent=4)
-        self.log(f'Saved file {filename}')
-        self.log(f'Length of file {len(finallist)}')
+        send_mail(ebay_scraper(finallist))
+
+
+def send_mail(message):
+    email = "YOUR GMAIL"
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.ehlo()
+    server.starttls()
+    server.login(email, "YOUR APP PASSWORD FOR GMAIL")
+    server.sendmail(email, email, message)
+    server.close()
+    print('sent mail')

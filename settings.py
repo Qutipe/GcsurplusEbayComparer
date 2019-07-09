@@ -14,7 +14,7 @@ BOT_NAME = 'Gcsurplus_scraper'
 SPIDER_MODULES = ['Gcsurplus_scraper.spiders']
 NEWSPIDER_MODULE = 'Gcsurplus_scraper.spiders'
 
-
+LOG_LEVEL="INFO"
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'Gcsurplus_scraper (+http://www.yourdomain.com)'
 
